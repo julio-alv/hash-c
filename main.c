@@ -11,7 +11,7 @@ typedef struct Person
 
 int main()
 {
-    HashMap* map = hashmap_create(1, fnv1a_hash);
+    HashMap* map = hashmap_create(16, fnv1a_hash);
 
     char* key = "John";
     Person value = {

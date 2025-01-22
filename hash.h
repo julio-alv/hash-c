@@ -95,18 +95,19 @@ void hashmap_delete(HashMap* map, const void* key, size_t key_len) {
     {
         if (entry->key_len == key_len && memcmp(entry->key, key, key_len) == 0)
         {
+            if (prev && entry->next) {
+                prev->next = entry->next;
+            }
+            else if (prev) {
+                prev->next = NULL;
+            }
+            else {
+                map->entries[hash] = entry->next;
+            }
+
             free(entry->key);
             free(entry->value);
             free(entry);
-
-            if (prev)
-            {
-                prev->next = NULL;
-            }
-            else
-            {
-                map->entries[hash] = NULL;
-            }
 
             map->size--;
             return;
